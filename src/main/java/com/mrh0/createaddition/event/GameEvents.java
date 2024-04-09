@@ -1,10 +1,7 @@
 package com.mrh0.createaddition.event;
 
-import com.mrh0.createaddition.blocks.crops.HarmfulPlantBlock;
 import com.mrh0.createaddition.blocks.liquid_blaze_burner.LiquidBlazeBurnerBlock;
-import com.mrh0.createaddition.blocks.portable_energy_interface.PortableEnergyManager;
 import com.mrh0.createaddition.debug.CADebugger;
-import com.mrh0.createaddition.energy.network.EnergyNetworkManager;
 import com.mrh0.createaddition.index.CABlocks;
 import com.mrh0.createaddition.index.CAItems;
 import com.mrh0.createaddition.network.ObservePacket;
@@ -33,14 +30,12 @@ public class GameEvents {
 	public static void worldTickEvent(TickEvent.LevelTickEvent evt) {
 		if(evt.level.isClientSide()) return;
 		if(evt.phase == Phase.END) return;
-		EnergyNetworkManager.tickWorld(evt.level);
 	}
 
 	@SubscribeEvent
 	public static void serverTickEvent(TickEvent.ServerTickEvent evt) {
 		if(evt.phase == Phase.END) return;
 		// Using ServerTick instead of WorldTick because some contraptions can switch worlds.
-		PortableEnergyManager.tick();
 	}
 
 	@SubscribeEvent
@@ -48,12 +43,6 @@ public class GameEvents {
 		if(evt.phase == Phase.START) return;
 		ObservePacket.tick();
 		CADebugger.tick();
-	}
-
-	@SubscribeEvent
-	public static void loadEvent(LevelEvent.Load evt) {
-		if(evt.getLevel().isClientSide()) return;
-		new EnergyNetworkManager(evt.getLevel());
 	}
 
 	@SubscribeEvent

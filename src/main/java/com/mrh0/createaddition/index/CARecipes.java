@@ -1,14 +1,8 @@
 package com.mrh0.createaddition.index;
 
 import com.mrh0.createaddition.CreateAddition;
-import com.mrh0.createaddition.recipe.charging.ChargingRecipe;
-import com.mrh0.createaddition.recipe.charging.ChargingRecipeSerializer;
-import com.mrh0.createaddition.recipe.conditions.HasFluidTagCondition;
 import com.mrh0.createaddition.recipe.liquid_burning.LiquidBurningRecipe;
 import com.mrh0.createaddition.recipe.liquid_burning.LiquidBurningRecipeSerializer;
-import com.mrh0.createaddition.recipe.rolling.RollingRecipe;
-import com.mrh0.createaddition.recipe.rolling.RollingRecipeProcessingFactory;
-import com.mrh0.createaddition.recipe.rolling.SequencedAssemblyRollingRecipeSerializer;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -33,12 +27,6 @@ public class CARecipes {
 		});
 	}
 
-	public static final Supplier<RecipeType<RollingRecipe>> ROLLING_TYPE = register("rolling");
-	public static RegistryObject<RecipeSerializer<?>> ROLLING = SERIALIZERS.register("rolling", () ->
-			new SequencedAssemblyRollingRecipeSerializer(new RollingRecipeProcessingFactory()));
-
-	public static final Supplier<RecipeType<ChargingRecipe>> CHARGING_TYPE = register("charging");
-	public static final RegistryObject<RecipeSerializer<?>> CHARGING = SERIALIZERS.register("charging", ChargingRecipeSerializer::new);
 
 	public static final Supplier<RecipeType<LiquidBurningRecipe>> LIQUID_BURNING_TYPE = register("liquid_burning");
 	public static final RegistryObject<RecipeSerializer<?>> LIQUID_BURNING = SERIALIZERS.register("liquid_burning", LiquidBurningRecipeSerializer::new);
@@ -48,6 +36,6 @@ public class CARecipes {
     	SERIALIZERS.register(event);
 		RECIPE_TYPES.register(event);
 
-        CraftingHelper.register(HasFluidTagCondition.Serializer.INSTANCE);
+//        CraftingHelper.register(HasFluidTagCondition.Serializer.INSTANCE);
     }
 }

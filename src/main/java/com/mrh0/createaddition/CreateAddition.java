@@ -1,8 +1,6 @@
 package com.mrh0.createaddition;
 
 import com.mrh0.createaddition.index.*;
-import com.mrh0.createaddition.index.CASounds;
-import com.mrh0.createaddition.trains.schedule.CASchedule;
 import com.simibubi.create.content.fluids.tank.BoilerHeaters;
 import com.simibubi.create.content.kinetics.BlockStressValues;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
@@ -84,24 +82,17 @@ public class CreateAddition {
         CC_ACTIVE = ModList.get().isLoaded("computercraft");
         AE2_ACTIVE = ModList.get().isLoaded("ae2");
 
-        CACreativeModeTabs.register(eventBus);
         REGISTRATE.registerEventListeners(eventBus);
         CABlocks.register();
         CABlockEntities.register();
         CAItems.register();
-        CAFluids.register();
-        CAEffects.register(eventBus);
         CARecipes.register(eventBus);
-        CASounds.register(eventBus);
-        CASchedule.register();
-        CADamageTypes.register();
         CAArmInteractions.register();
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> CAPartials::init);
 
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-    	CAPotatoCannonProjectiles.register();
     	BlockStressValues.registerProvider(MODID, AllConfigs.server().kinetics.stressValues);
     	BoilerHeaters.registerHeater(CABlocks.LIQUID_BLAZE_BURNER.get(), (level, pos, state) -> {
     		BlazeBurnerBlock.HeatLevel value = state.getValue(LiquidBlazeBurnerBlock.HEAT_LEVEL);
@@ -117,10 +108,6 @@ public class CreateAddition {
         event.enqueueWork(CAItemProperties::register);
 
         RenderType cutout = RenderType.cutoutMipped();
-
-        ItemBlockRenderTypes.setRenderLayer(CABlocks.TESLA_COIL.get(), cutout);
-        ItemBlockRenderTypes.setRenderLayer(CABlocks.BARBED_WIRE.get(), cutout);
-        ItemBlockRenderTypes.setRenderLayer(CABlocks.SMALL_LIGHT_CONNECTOR.get(), cutout);
     }
 
     public void postInit(FMLLoadCompleteEvent evt) {
